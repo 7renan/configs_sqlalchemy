@@ -1,3 +1,5 @@
+from decouple import config
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -7,9 +9,9 @@ class DBConnectionHandler:
     
     def __init__(self) -> None:
         self.__connection_string = 'postgresql+psycopg2://{}:{}@localhost:5432/{}'.format(
-            'postgres',
-            'renan123123',
-            'shipay_db'
+            config('DB_USERNAME'),
+            config('DB_PASSWORD'),
+            config('DB_NAME')
         )
         self.__engine = self.create_engine()
         self.session = None
